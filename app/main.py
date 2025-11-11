@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utils import load_data, plot_boxplot, top_countries_table
+from utils import load_data_with_fallback, plot_boxplot, top_countries_table
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Solar Data Dashboard", layout="wide")
@@ -18,13 +18,17 @@ uploaded_files = {
     "Togo": "data/togo_clean.csv"
 }
 
-# Load datasets
+gdrive_folder_url = "https://drive.google.com/drive/folders/17Ez5_aMAjVc1uX4e8XXbccwKXf6jkSBc?usp=sharing"
+
+# --- LOAD DATASETS ---
 dfs = []
 for country, path in uploaded_files.items():
-    df = load_data(path)
+    df = load_data_with_fallback(path, gdrive_folder_url)  # use fallback function
     df['country'] = country
     dfs.append(df)
+
 df_all = pd.concat(dfs, ignore_index=True)
+
 
 # --- Country Selection (Checkboxes) ---
 st.sidebar.subheader("Select Countries")
