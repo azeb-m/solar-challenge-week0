@@ -13,9 +13,9 @@ st.markdown("Analyze solar irradiance metrics (GHI, DNI, DHI) across Benin, Sier
 st.sidebar.header("🔹 Data Source & Filters")
 
 uploaded_files = {
-    "Benin": "data/benin_clean.csv",
-    "SierraLeone": "data/sieraleone_clean.csv",
-    "Togo": "data/togo_clean.csv"
+    "Benin": "../data/benin_clean.csv",
+    "SierraLeone": "../data/sieraleone_clean.csv",
+    "Togo": "../data/togo_clean.csv"
 }
 
 
