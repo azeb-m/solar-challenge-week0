@@ -2,17 +2,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
-import os
-import gdown
 
-@st.cache_data
-def load_data_with_fallback(file_path, gdrive_file_url):
-    """Load CSV from local path; if missing, download from Google Drive file."""
-    if not os.path.exists(file_path):
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        gdown.download(gdrive_file_url, file_path, quiet=False)
-    df = pd.read_csv(file_path, parse_dates=['Timestamp'])
-    return df
+
 @st.cache_data
 def load_data(file_path):
     """Load cleaned CSV file into a pandas DataFrame."""

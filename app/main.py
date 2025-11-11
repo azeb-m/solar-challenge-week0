@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utils import load_data_with_fallback, plot_boxplot, top_countries_table
+from utils import load_data, plot_boxplot, top_countries_table
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Solar Data Dashboard", layout="wide")
@@ -13,32 +13,20 @@ st.markdown("Analyze solar irradiance metrics (GHI, DNI, DHI) across Benin, Sier
 st.sidebar.header("🔹 Data Source & Filters")
 
 uploaded_files = {
-    "Benin": {
-        "path": "data/benin_clean.csv",
-        "url": "https://drive.google.com/file/d/170EaEEnMB-pwKQ_K0uQY48awVvcDR1GR/view?usp=drive_link"
-    },
-    "SierraLeone": {
-        "path": "data/sieraleone_clean.csv",
-        "url": "https://drive.google.com/file/d/1wCRgoJSXb-rEC4tE3WVLiFc4gSEUonhz/view?usp=drive_link"
-    },
-    "Togo": {
-        "path": "data/togo_clean.csv",
-        "url": "https://drive.google.com/file/d/1j9AEUCWghuPldTc9RnTIvPfIkV7A_dB-/view?usp=drive_link"
-    }
+    "Benin": "data/benin_clean.csv",
+    "SierraLeone": "data/sieraleone_clean.csv",
+    "Togo": "data/togo_clean.csv"
 }
 
 
-
-# --- LOAD DATASETS ---
+# Load datasets
 dfs = []
 
-for country, info in uploaded_files.items():
-    df = load_data_with_fallback(info["path"], info["url"])  # download individually
+for country, path in uploaded_files.items():
+    df = load_data(path)
     df['country'] = country
     dfs.append(df)
-
 df_all = pd.concat(dfs, ignore_index=True)
-
 
 # --- Country Selection (Checkboxes) ---
 st.sidebar.subheader("Select Countries")
