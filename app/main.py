@@ -13,17 +13,27 @@ st.markdown("Analyze solar irradiance metrics (GHI, DNI, DHI) across Benin, Sier
 st.sidebar.header("🔹 Data Source & Filters")
 
 uploaded_files = {
-    "Benin": "data/benin_clean.csv",
-    "SierraLeone": "data/sieraleone_clean.csv",
-    "Togo": "data/togo_clean.csv"
+    "Benin": {
+        "path": "data/benin_clean.csv",
+        "url": "https://drive.google.com/file/d/170EaEEnMB-pwKQ_K0uQY48awVvcDR1GR/view?usp=drive_link"
+    },
+    "SierraLeone": {
+        "path": "data/sieraleone_clean.csv",
+        "url": "https://drive.google.com/file/d/1wCRgoJSXb-rEC4tE3WVLiFc4gSEUonhz/view?usp=drive_link"
+    },
+    "Togo": {
+        "path": "data/togo_clean.csv",
+        "url": "https://drive.google.com/file/d/1j9AEUCWghuPldTc9RnTIvPfIkV7A_dB-/view?usp=drive_link"
+    }
 }
 
-gdrive_folder_url = "https://drive.google.com/drive/folders/17Ez5_aMAjVc1uX4e8XXbccwKXf6jkSBc?usp=sharing"
+
 
 # --- LOAD DATASETS ---
 dfs = []
-for country, path in uploaded_files.items():
-    df = load_data_with_fallback(path, gdrive_folder_url)  # use fallback function
+
+for country, info in uploaded_files.items():
+    df = load_data_with_fallback(info["path"], info["url"])  # download individually
     df['country'] = country
     dfs.append(df)
 
