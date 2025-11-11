@@ -14,7 +14,7 @@ st.sidebar.header("🔹 Data Source & Filters")
 
 uploaded_files = {
     "Benin": "data/benin_clean.csv",
-    "SierraLeone": "data/sieraleone_clean.csv",
+    "SierraLeone": "data/Sieraleone_clean.csv",
     "Togo": "data/togo_clean.csv"
 }
 
